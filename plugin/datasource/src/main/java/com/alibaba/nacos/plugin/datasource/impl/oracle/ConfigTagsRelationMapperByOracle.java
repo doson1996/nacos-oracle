@@ -33,7 +33,7 @@ import java.util.List;
  * @author hyx
  **/
 
-public class ConfigTagsRelationMapperByOracle extends AbstractMapperByMysql implements ConfigTagsRelationMapper {
+public class ConfigTagsRelationMapperByOracle extends AbstractMapperByOracle implements ConfigTagsRelationMapper {
 
     @Override
     public MapperResult findConfigInfo4PageFetchRows(MapperContext context) {
@@ -47,12 +47,12 @@ public class ConfigTagsRelationMapperByOracle extends AbstractMapperByMysql impl
         List<Object> paramList = new ArrayList<>();
         StringBuilder where = new StringBuilder(" WHERE ");
         final String sql =
-                "SELECT a.id,a.data_id,a.group_id,a.tenant_id,a.app_name,a.content FROM config_info  a LEFT JOIN "
+                "SELECT * FROM (SELECT a.id,a.data_id,a.group_id,a.tenant_id,a.app_name,a.content, ROWNUM as rnum FROM config_info  a LEFT JOIN "
                         + "config_tags_relation b ON a.id=b.id";
-        
+
         where.append(" a.tenant_id=? ");
         paramList.add(tenant);
-        
+
         if (StringUtils.isNotBlank(dataId)) {
             where.append(" AND a.data_id=? ");
             paramList.add(dataId);
@@ -78,10 +78,10 @@ public class ConfigTagsRelationMapperByOracle extends AbstractMapperByMysql impl
             paramList.add(tagArr[i]);
         }
         where.append(") ");
-        return new MapperResult(sql + where + " LIMIT " + context.getStartRow() + "," + context.getPageSize(),
+        return new MapperResult(sql + where + ")" + " WHERE  rnum >= " + (context.getStartRow() + 1) + " and " + (context.getPageSize() + context.getStartRow()) + " >= rnum ",
                 paramList);
     }
-    
+
     @Override
     public MapperResult findConfigInfoLike4PageFetchRows(MapperContext context) {
         final String tenant = (String) context.getWhereParameter(FieldConstant.TENANT_ID);
@@ -90,13 +90,13 @@ public class ConfigTagsRelationMapperByOracle extends AbstractMapperByMysql impl
         final String appName = (String) context.getWhereParameter(FieldConstant.APP_NAME);
         final String content = (String) context.getWhereParameter(FieldConstant.CONTENT);
         final String[] tagArr = (String[]) context.getWhereParameter(FieldConstant.TAG_ARR);
-        
+
         List<Object> paramList = new ArrayList<>();
-        
+
         StringBuilder where = new StringBuilder(" WHERE ");
-        final String sqlFetchRows = "SELECT a.id,a.data_id,a.group_id,a.tenant_id,a.app_name,a.content "
+        final String sqlFetchRows = "SELECT * FROM (SELECT a.id,a.data_id,a.group_id,a.tenant_id,a.app_name,a.content, ROWNUM as rnum "
                 + "FROM config_info a LEFT JOIN config_tags_relation b ON a.id=b.id ";
-        
+
         where.append(" a.tenant_id LIKE ? ");
         paramList.add(tenant);
         if (!StringUtils.isBlank(dataId)) {
@@ -115,7 +115,7 @@ public class ConfigTagsRelationMapperByOracle extends AbstractMapperByMysql impl
             where.append(" AND a.content LIKE ? ");
             paramList.add(content);
         }
-        
+
         where.append(" AND b.tag_name IN (");
         for (int i = 0; i < tagArr.length; i++) {
             if (i != 0) {
@@ -125,12 +125,12 @@ public class ConfigTagsRelationMapperByOracle extends AbstractMapperByMysql impl
             paramList.add(tagArr[i]);
         }
         where.append(") ");
-        return new MapperResult(sqlFetchRows + where + " LIMIT " + context.getStartRow() + "," + context.getPageSize(),
+        return new MapperResult(sqlFetchRows + where + ") " + " WHERE  rnum >= " + (context.getStartRow() + 1) + " and " + (context.getPageSize() + context.getStartRow()) + " >= rnum ",
                 paramList);
     }
-    
+
     @Override
     public String getDataSource() {
-        return DataSourceConstant.MYSQL;
+        return DataSourceConstant.ORACLE;
     }
 }

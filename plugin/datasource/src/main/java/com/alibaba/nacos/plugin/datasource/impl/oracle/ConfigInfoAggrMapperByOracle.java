@@ -31,7 +31,7 @@ import java.util.List;
  *
  * @author hyx
  **/
-public class ConfigInfoAggrMapperByOracle extends AbstractMapperByMysql implements ConfigInfoAggrMapper {
+public class ConfigInfoAggrMapperByOracle extends AbstractMapperByOracle implements ConfigInfoAggrMapper {
 
     @Override
     public MapperResult findConfigInfoAggrByPageFetchRows(MapperContext context) {
@@ -45,10 +45,10 @@ public class ConfigInfoAggrMapperByOracle extends AbstractMapperByMysql implemen
         List<Object> paramList = CollectionUtils.list(dataId, groupId, tenantId);
         return new MapperResult(sql, paramList);
     }
-    
+
     @Override
     public String getDataSource() {
-        return DataSourceConstant.MYSQL;
+        return DataSourceConstant.ORACLE;
     }
 
 }

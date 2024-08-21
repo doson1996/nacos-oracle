@@ -30,18 +30,19 @@ import java.util.Collections;
  * @author hyx
  **/
 
-public class ConfigInfoTagMapperByOracle extends AbstractMapperByMysql implements ConfigInfoTagMapper {
+public class ConfigInfoTagMapperByOracle extends AbstractMapperByOracle implements ConfigInfoTagMapper {
 
     @Override
     public MapperResult findAllConfigInfoTagForDumpAllFetchRows(MapperContext context) {
         String sql = " SELECT t.id,data_id,group_id,tenant_id,tag_id,app_name,content,md5,gmt_modified "
-                + " FROM (  SELECT id FROM config_info_tag  ORDER BY id LIMIT " + context.getStartRow() + ","
-                + context.getPageSize() + " ) " + "g, config_info_tag t  WHERE g.id = t.id  ";
+                + " FROM ( SELECT * FROM ( SELECT id, ROWNUM as rnum FROM config_info_tag  ORDER BY id) "
+                + " WHERE  rnum >= " + (context.getStartRow() + 1) + " and " + (context.getPageSize() + context.getStartRow()) + " >= rnum ) "
+                + "g, config_info_tag t  WHERE g.id = t.id  ";
         return new MapperResult(sql, Collections.emptyList());
     }
 
     @Override
     public String getDataSource() {
-        return DataSourceConstant.MYSQL;
+        return DataSourceConstant.ORACLE;
     }
 }

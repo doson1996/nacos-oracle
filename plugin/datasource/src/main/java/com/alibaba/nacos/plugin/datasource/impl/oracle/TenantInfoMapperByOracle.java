@@ -26,10 +26,10 @@ import com.alibaba.nacos.plugin.datasource.mapper.TenantInfoMapper;
  * @author hyx
  **/
 
-public class TenantInfoMapperByOracle extends AbstractMapperByMysql implements TenantInfoMapper {
+public class TenantInfoMapperByOracle extends AbstractMapperByOracle implements TenantInfoMapper {
 
     @Override
     public String getDataSource() {
-        return DataSourceConstant.MYSQL;
+        return DataSourceConstant.ORACLE;
     }
 }

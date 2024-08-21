@@ -31,7 +31,7 @@ import java.util.List;
  * @author hyx
  **/
 
-public class ConfigInfoBetaMapperByOracle extends AbstractMapperByMysql implements ConfigInfoBetaMapper {
+public class ConfigInfoBetaMapperByOracle extends AbstractMapperByOracle implements ConfigInfoBetaMapper {
 
     @Override
     public MapperResult findAllConfigInfoBetaForDumpAllFetchRows(MapperContext context) {

@@ -30,18 +30,18 @@ import com.alibaba.nacos.plugin.datasource.model.MapperResult;
  * @author hyx
  **/
 
-public class TenantCapacityMapperByOracle extends AbstractMapperByMysql implements TenantCapacityMapper {
-
-    @Override
-    public String getDataSource() {
-        return DataSourceConstant.MYSQL;
-    }
+public class TenantCapacityMapperByOracle extends AbstractMapperByOracle implements TenantCapacityMapper {
 
     @Override
     public MapperResult getCapacityList4CorrectUsage(MapperContext context) {
-        String sql = "SELECT id, tenant_id FROM tenant_capacity WHERE id>? LIMIT ?";
+        String sql = "SELECT id, tenant_id FROM tenant_capacity WHERE id>? AND ROWNUM <= ?";
         return new MapperResult(sql, CollectionUtils.list(context.getWhereParameter(FieldConstant.ID),
                 context.getWhereParameter(FieldConstant.LIMIT_SIZE)));
     }
-    
+
+    @Override
+    public String getDataSource() {
+        return DataSourceConstant.ORACLE;
+    }
+
 }
