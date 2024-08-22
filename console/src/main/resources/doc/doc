@@ -1,0 +1,5 @@
+单机启动
+-Dnacos.standalone=true
+
+-- 打包-发布
+mvn -Prelease-nacos  -Dpmd.skip=true -Dcheckstyle.skip=true -Dmaven.test.skip=true clean install -U
