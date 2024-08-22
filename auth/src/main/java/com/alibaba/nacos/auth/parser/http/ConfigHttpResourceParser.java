@@ -36,7 +36,7 @@ public class ConfigHttpResourceParser extends AbstractHttpResourceParser {
         if (StringUtils.isBlank(namespaceId)) {
             namespaceId = request.getParameter(Constants.TENANT);
         }
-        return NamespaceUtil.processNamespaceParameter(namespaceId);
+        return NamespaceUtil.processNamespaceParameter(namespaceId, true);
     }
     
     @Override

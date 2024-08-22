@@ -52,6 +52,20 @@ public class NamespaceUtil {
         }
         return tenant.trim();
     }
+
+    /**
+     * 兼容配置和服务列表条件筛选，namespace为public时还是返回 ""
+     * @param tenant
+     * @param f
+     * @return
+     */
+    public static String processNamespaceParameter(String tenant, boolean f) {
+        if (StringUtils.isBlank(tenant) || NAMESPACE_PUBLIC_KEY.equalsIgnoreCase(tenant)
+                || NAMESPACE_NULL_KEY.equalsIgnoreCase(tenant)) {
+            return getNamespaceDefaultId();
+        }
+        return tenant.trim();
+    }
     
     /**
      * Set default namespace id. Invoke settings at system startup.

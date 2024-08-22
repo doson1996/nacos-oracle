@@ -33,7 +33,7 @@ public class NamingHttpResourceParser extends AbstractHttpResourceParser {
     
     @Override
     protected String getNamespaceId(HttpServletRequest request) {
-        return NamespaceUtil.processNamespaceParameter(request.getParameter(CommonParams.NAMESPACE_ID));
+        return NamespaceUtil.processNamespaceParameter(request.getParameter(CommonParams.NAMESPACE_ID), true);
         
     }
     
