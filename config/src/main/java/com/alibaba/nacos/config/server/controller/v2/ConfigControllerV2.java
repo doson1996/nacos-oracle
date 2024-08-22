@@ -180,7 +180,7 @@ public class ConfigControllerV2 {
     @ExtractorManager.Extractor(httpExtractor = ConfigBlurSearchHttpParamExtractor.class)
     public Page<ConfigInfo> searchConfigByDetails(@RequestParam("dataId") String dataId, @RequestParam("group") String group,
             @RequestParam(value = "appName", required = false) String appName,
-            @RequestParam(value = "tenant", required = false, defaultValue = StringUtils.EMPTY) String tenant,
+            @RequestParam(value = "tenant", required = false, defaultValue = StringUtils.NULL) String tenant,
             @RequestParam(value = "config_tags", required = false) String configTags,
             @RequestParam(value = "config_detail") String configDetail,
             @RequestParam(value = "search", defaultValue = "blur", required = false) String search,

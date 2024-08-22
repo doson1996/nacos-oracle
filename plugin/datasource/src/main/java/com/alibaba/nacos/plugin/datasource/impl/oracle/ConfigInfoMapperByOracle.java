@@ -116,7 +116,7 @@ public class ConfigInfoMapperByOracle extends AbstractMapperByOracle implements 
         final String dataId = (String) context.getWhereParameter(FieldConstant.DATA_ID);
         final String group = (String) context.getWhereParameter(FieldConstant.GROUP_ID);
         final String appName = (String) context.getWhereParameter(FieldConstant.APP_NAME);
-        final String tenantTmp = StringUtils.isBlank(tenant) ? StringUtils.EMPTY : tenant;
+        final String tenantTmp = StringUtils.isBlank(tenant) ? StringUtils.NULL : tenant;
         final Timestamp startTime = (Timestamp) context.getWhereParameter(FieldConstant.START_TIME);
         final Timestamp endTime = (Timestamp) context.getWhereParameter(FieldConstant.END_TIME);
 

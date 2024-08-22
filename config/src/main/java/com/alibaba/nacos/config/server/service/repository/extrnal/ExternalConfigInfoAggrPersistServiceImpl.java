@@ -90,7 +90,7 @@ public class ExternalConfigInfoAggrPersistServiceImpl implements ConfigInfoAggrP
     public boolean addAggrConfigInfo(final String dataId, final String group, String tenant, final String datumId,
             String appName, final String content) {
         String appNameTmp = StringUtils.isBlank(appName) ? StringUtils.EMPTY : appName;
-        String tenantTmp = StringUtils.isBlank(tenant) ? StringUtils.EMPTY : tenant;
+        String tenantTmp = StringUtils.isBlank(tenant) ? StringUtils.NULL : tenant;
         final Timestamp now = new Timestamp(System.currentTimeMillis());
         ConfigInfoAggrMapper configInfoAggrMapper = mapperManager.findMapper(dataSourceService.getDataSourceType(),
                 TableConstant.CONFIG_INFO_AGGR);
@@ -148,7 +148,7 @@ public class ExternalConfigInfoAggrPersistServiceImpl implements ConfigInfoAggrP
     
     @Override
     public int aggrConfigInfoCount(String dataId, String group, String tenant) {
-        String tenantTmp = StringUtils.isBlank(tenant) ? StringUtils.EMPTY : tenant;
+        String tenantTmp = StringUtils.isBlank(tenant) ? StringUtils.NULL : tenant;
         ConfigInfoAggrMapper configInfoAggrMapper = mapperManager.findMapper(dataSourceService.getDataSourceType(),
                 TableConstant.CONFIG_INFO_AGGR);
         String sql = configInfoAggrMapper.count(Arrays.asList("data_id", "group_id", "tenant_id"));
@@ -159,7 +159,7 @@ public class ExternalConfigInfoAggrPersistServiceImpl implements ConfigInfoAggrP
     @Override
     public Page<ConfigInfoAggr> findConfigInfoAggrByPage(String dataId, String group, String tenant, final int pageNo,
             final int pageSize) {
-        String tenantTmp = StringUtils.isBlank(tenant) ? StringUtils.EMPTY : tenant;
+        String tenantTmp = StringUtils.isBlank(tenant) ? StringUtils.NULL : tenant;
         ConfigInfoAggrMapper configInfoAggrMapper = mapperManager.findMapper(dataSourceService.getDataSourceType(),
                 TableConstant.CONFIG_INFO_AGGR);
         final int startRow = (pageNo - 1) * pageSize;

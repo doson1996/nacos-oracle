@@ -135,7 +135,7 @@ public class ExternalConfigInfoBetaPersistServiceImpl implements ConfigInfoBetaP
     
     @Override
     public void removeConfigInfo4Beta(final String dataId, final String group, final String tenant) {
-        final String tenantTmp = StringUtils.isBlank(tenant) ? StringUtils.EMPTY : tenant;
+        final String tenantTmp = StringUtils.isBlank(tenant) ? StringUtils.NULL : tenant;
         tjt.execute(status -> {
             try {
                 ConfigInfoStateWrapper configInfo = findConfigInfo4BetaState(dataId, group, tenant);
@@ -180,7 +180,7 @@ public class ExternalConfigInfoBetaPersistServiceImpl implements ConfigInfoBetaP
     @Override
     public ConfigInfoStateWrapper findConfigInfo4BetaState(final String dataId, final String group,
             final String tenant) {
-        String tenantTmp = StringUtils.isBlank(tenant) ? StringUtils.EMPTY : tenant;
+        String tenantTmp = StringUtils.isBlank(tenant) ? StringUtils.NULL : tenant;
         try {
             return this.jt.queryForObject(
                     "SELECT id,data_id,group_id,tenant_id,gmt_modified FROM config_info_beta WHERE data_id=? AND group_id=? AND tenant_id=? ",
@@ -243,7 +243,7 @@ public class ExternalConfigInfoBetaPersistServiceImpl implements ConfigInfoBetaP
     
     @Override
     public ConfigInfoBetaWrapper findConfigInfo4Beta(final String dataId, final String group, final String tenant) {
-        String tenantTmp = StringUtils.isBlank(tenant) ? StringUtils.EMPTY : tenant;
+        String tenantTmp = StringUtils.isBlank(tenant) ? StringUtils.NULL : tenant;
         try {
             ConfigInfoBetaMapper configInfoBetaMapper = mapperManager.findMapper(dataSourceService.getDataSourceType(),
                     TableConstant.CONFIG_INFO_BETA);

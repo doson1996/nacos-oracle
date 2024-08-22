@@ -43,6 +43,9 @@ public class StringUtils {
     public static final String COMMA = ",";
     
     public static final String EMPTY = "";
+
+    // 兼容oracle
+    public static final String NULL = "null";
     
     public static final String LF = "\n";
     

@@ -143,7 +143,7 @@ public class ExternalHistoryConfigInfoPersistServiceImpl implements HistoryConfi
     public Page<ConfigHistoryInfo> findConfigHistory(String dataId, String group, String tenant, int pageNo,
             int pageSize) {
         PaginationHelper<ConfigHistoryInfo> helper = createPaginationHelper();
-        String tenantTmp = StringUtils.isBlank(tenant) ? StringUtils.EMPTY : tenant;
+        String tenantTmp = StringUtils.isBlank(tenant) ? StringUtils.NULL : tenant;
         
         MapperContext context = new MapperContext((pageNo - 1) * pageSize, pageSize);
         context.putWhereParameter(FieldConstant.DATA_ID, dataId);

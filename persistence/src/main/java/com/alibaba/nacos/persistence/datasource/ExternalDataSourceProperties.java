@@ -39,8 +39,9 @@ public class ExternalDataSourceProperties {
     
     private static final String JDBC_DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
     
-    private static final String TEST_QUERY = "SELECT 1";
-    
+//    private static final String TEST_QUERY = "SELECT 1";
+    private static final String TEST_QUERY = "SELECT 1 FROM DUAL";
+
     private Integer num;
     
     private List<String> url = new ArrayList<>();

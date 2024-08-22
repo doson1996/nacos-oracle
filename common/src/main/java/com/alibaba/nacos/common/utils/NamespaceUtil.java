@@ -33,8 +33,10 @@ public class NamespaceUtil {
     /**
      * public id，默认值为 "".
      */
-    public static String namespaceDefaultId = "";
-    
+//    public static String namespaceDefaultId = "";
+    // 兼容oracle
+    public static String namespaceDefaultId = StringUtils.NULL;
+
     private static final String NAMESPACE_NULL_KEY = "null";
     
     /**

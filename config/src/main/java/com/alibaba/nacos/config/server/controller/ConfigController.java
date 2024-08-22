@@ -154,7 +154,7 @@ public class ConfigController {
     @Secured(action = ActionTypes.WRITE, signType = SignType.CONFIG)
     public Boolean publishConfig(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(value = "dataId") String dataId, @RequestParam(value = "group") String group,
-            @RequestParam(value = "tenant", required = false, defaultValue = StringUtils.EMPTY) String tenant,
+            @RequestParam(value = "tenant", required = false, defaultValue = StringUtils.NULL) String tenant,
             @RequestParam(value = "content") String content, @RequestParam(value = "tag", required = false) String tag,
             @RequestParam(value = "appName", required = false) String appName,
             @RequestParam(value = "src_user", required = false) String srcUser,
@@ -223,7 +223,7 @@ public class ConfigController {
     @Secured(action = ActionTypes.READ, signType = SignType.CONFIG)
     public void getConfig(HttpServletRequest request, HttpServletResponse response,
             @RequestParam("dataId") String dataId, @RequestParam("group") String group,
-            @RequestParam(value = "tenant", required = false, defaultValue = StringUtils.EMPTY) String tenant,
+            @RequestParam(value = "tenant", required = false, defaultValue = StringUtils.NULL) String tenant,
             @RequestParam(value = "tag", required = false) String tag)
             throws IOException, ServletException, NacosException {
         // check tenant
@@ -279,7 +279,7 @@ public class ConfigController {
     @Secured(action = ActionTypes.WRITE, signType = SignType.CONFIG)
     public Boolean deleteConfig(HttpServletRequest request, HttpServletResponse response,
             @RequestParam("dataId") String dataId, @RequestParam("group") String group,
-            @RequestParam(value = "tenant", required = false, defaultValue = StringUtils.EMPTY) String tenant,
+            @RequestParam(value = "tenant", required = false, defaultValue = StringUtils.NULL) String tenant,
             @RequestParam(value = "tag", required = false) String tag) throws NacosException {
         // check tenant
         ParamUtils.checkTenant(tenant);
@@ -387,7 +387,7 @@ public class ConfigController {
     @ExtractorManager.Extractor(httpExtractor = ConfigBlurSearchHttpParamExtractor.class)
     public Page<ConfigInfo> searchConfig(@RequestParam("dataId") String dataId, @RequestParam("group") String group,
             @RequestParam(value = "appName", required = false) String appName,
-            @RequestParam(value = "tenant", required = false, defaultValue = StringUtils.EMPTY) String tenant,
+            @RequestParam(value = "tenant", required = false, defaultValue = StringUtils.NULL) String tenant,
             @RequestParam(value = "config_tags", required = false) String configTags,
             @RequestParam("pageNo") int pageNo, @RequestParam("pageSize") int pageSize) {
         Map<String, Object> configAdvanceInfo = new HashMap<>(100);
@@ -416,7 +416,7 @@ public class ConfigController {
     @ExtractorManager.Extractor(httpExtractor = ConfigBlurSearchHttpParamExtractor.class)
     public Page<ConfigInfo> fuzzySearchConfig(@RequestParam("dataId") String dataId,
             @RequestParam("group") String group, @RequestParam(value = "appName", required = false) String appName,
-            @RequestParam(value = "tenant", required = false, defaultValue = StringUtils.EMPTY) String tenant,
+            @RequestParam(value = "tenant", required = false, defaultValue = StringUtils.NULL) String tenant,
             @RequestParam(value = "config_tags", required = false) String configTags,
             @RequestParam("pageNo") int pageNo, @RequestParam("pageSize") int pageSize) {
         MetricsMonitor.getFuzzySearchMonitor().incrementAndGet();
@@ -509,7 +509,7 @@ public class ConfigController {
     public ResponseEntity<byte[]> exportConfig(@RequestParam(value = "dataId", required = false) String dataId,
             @RequestParam(value = "group", required = false) String group,
             @RequestParam(value = "appName", required = false) String appName,
-            @RequestParam(value = "tenant", required = false, defaultValue = StringUtils.EMPTY) String tenant,
+            @RequestParam(value = "tenant", required = false, defaultValue = StringUtils.NULL) String tenant,
             @RequestParam(value = "ids", required = false) List<Long> ids) {
         ids.removeAll(Collections.singleton(null));
         tenant = NamespaceUtil.processNamespaceParameter(tenant);
@@ -564,7 +564,7 @@ public class ConfigController {
     public ResponseEntity<byte[]> exportConfigV2(@RequestParam(value = "dataId", required = false) String dataId,
             @RequestParam(value = "group", required = false) String group,
             @RequestParam(value = "appName", required = false) String appName,
-            @RequestParam(value = "tenant", required = false, defaultValue = StringUtils.EMPTY) String tenant,
+            @RequestParam(value = "tenant", required = false, defaultValue = StringUtils.NULL) String tenant,
             @RequestParam(value = "ids", required = false) List<Long> ids) {
         ids.removeAll(Collections.singleton(null));
         tenant = NamespaceUtil.processNamespaceParameter(tenant);
