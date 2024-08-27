@@ -33,7 +33,7 @@ public class AuthRowMapperManager {
     
     public static final RoleInfoRowMapper ROLE_INFO_ROW_MAPPER = new RoleInfoRowMapper();
     
-    public static final PermissionRowMapper PERMISSION_ROW_MAPPER = new PermissionRowMapper();
+    public static final PermissionRowMapperByOracle PERMISSION_ROW_MAPPER = new PermissionRowMapperByOracle();
     
     static {
         // USER_ROW_MAPPER
@@ -70,6 +70,18 @@ public class AuthRowMapperManager {
     
     public static final class PermissionRowMapper implements RowMapper<PermissionInfo> {
         
+        @Override
+        public PermissionInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
+            PermissionInfo info = new PermissionInfo();
+            info.setResource(rs.getString("resource"));
+            info.setAction(rs.getString("action"));
+            info.setRole(rs.getString("role"));
+            return info;
+        }
+    }
+
+    public static final class PermissionRowMapperByOracle implements RowMapper<PermissionInfo> {
+
         @Override
         public PermissionInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
             PermissionInfo info = new PermissionInfo();
